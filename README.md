@@ -2,6 +2,5 @@
 A highly customizable fantasy league. Allows the user to create players, specify duration of the league, and ratings of the players. 
 
 TODO:
-- Implement algorithm that determines the winner 
 - Live chat using websockets
 - Error handling 
