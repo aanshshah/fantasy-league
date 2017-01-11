@@ -1,0 +1,301 @@
+{% extends "base.html" %}
+<head>
+    <meta charset="UTF-8">
+
+</head>
+{% load staticfiles %}
+{% block main_content %}
+
+
+<body>
+    <script type="text/javascript">
+            $(window).load(function(){
+                {% if num_league %}
+                    league_search = true;
+                {% else %}
+                league_search = false;
+                {% endif %}
+if(league_search) {
+    $('#myModal2').modal('show');
+    console.log('present');
+}else{
+    $('#myModal2').modal('hide');
+}
+            });
+        </script>
+{#Hello {{ user.username}}! #}
+<br> <br> <br>
+<div class="opac">
+<div class="row">
+<div class="col-md-6 fade-in one">
+<div class="well well-sm fade-in">
+<div class="pending_trade">
+<b> Trade notifications: </b>
+{% if trade_notification %}
+    {% for notifications in trade_notification %}
+        {% if notifications.notification_active %}
+        <form action="/request_trade/" method="post"> {% csrf_token %}
+
+    Proposing User: {{ notifications.user_requesting_trade }} <br>
+        <input type="text" style="visibility: hidden" value="{{ notifications.user_requesting_trade.id }}" name="trade_requesting_user">
+    {% for player in notifications.player_traded.all %}
+    Player: {{ player.first_name }} {{ player.last_name }} <br>
+        <input type="text" style="visibility: hidden" value="{{ player.id }}" name="trade_player">
+        {% endfor %}
+    Date Requested: {{ notifications.date_requested }} <br>
+
+        <input type="submit" value="accept" name="trade_accept" class="btn-sm login submit"> <input type="submit" value="reject" name="trade_reject" class="btn-sm login submit">
+        </form>
+            {% else %}
+            {% if notifications.accepted == True and notifications.rejected == False%}
+                <div class="underline">
+            <br> Accepted Trade with: {{ notifications.user_requesting_trade }}
+                </div>
+                             <br>
+            {% for player in notifications.player_traded.all %}
+    <b>{{ player.first_name }} {{ player.last_name }}</b>
+                {% if forloop.counter|divisibleby:"2" %}
+    was traded with
+    {% else %}
+     <br>
+{% endif %}
+        {% endfor %}
+                {% endif %}
+            {% if notifications.rejected == True and notifications.accepted == False %}
+                <div class="underline">
+                <br> Rejected Trade with: {{ notifications.user_requesting_trade }}
+                             <br>
+                </div>
+            {% for player in notifications.player_traded.all %}
+    {{ player.first_name }} {{ player.last_name }}
+                {% if forloop.counter|divisibleby:"2" %}
+    <br>
+    {% else %}
+    was not traded with
+{% endif %}
+        {% endfor %}
+                {% endif %}
+
+
+{#    Date Requested: {{ notifications.date_requested }} <br>#}
+        {% endif %}
+
+{% endfor %}
+    {% else %}
+    You have no trade notifications!! <br>
+{% endif %}
+</div>
+</div>
+</div>
+
+<div class="col-md-6 fade-in two">
+<div class="well well-sm fade-in">
+{% if league %}
+    <b> League Name: </b>
+    {% for league in league %}
+    <b><a href="/league/{{ league.id }}">{{ league.name }}</a> </b><br>
+    {% endfor %}
+{% if player %}
+<div class="underline">
+    Members of your team:
+    </div>
+    {% for person in player %}
+            <form action="/delete_player/" method="post"> {% csrf_token %}
+            <div class="col-md-6">
+            Player {{ forloop.counter }}: {{ person.first_name }} {{ person.last_name }}
+                </div>
+            <div class="col-md-2">
+                rating: {{ person.rating }}
+        <input type="text" style="visibility: hidden; width: 1px" name="first_name" value="{{ person.first_name }}">
+        <input type="text" style="visibility: hidden; width: 1px" name="last_name" value="{{ person.last_name }}">
+
+            </div>
+{#                <br>#}
+{#                <br>#}
+                <div class="col-md-2">
+{#                <div class="remove-player">#}
+            <input type="submit" name="login" class="btn-sm login submit" value="Remove Player From Team">
+{#                </div>#}
+                    </div>
+                    <br>
+{#        <button name="{{ person.first_name }}" id="delete" class="delete-player" value={{ person.last_name }} >Remove Player From Team</button>#}
+{#        <button style="visibility: hidden" name="extra" class="delete-player" value={{person.name}}>Remove Player From Team</button>#}
+        </form>
+            {% endfor %}
+
+{% else %}
+
+
+    You don't have any players! Get some players!
+{% endif %}
+</div>
+    </div>
+</div>
+
+
+
+
+    <br>
+    <br>
+{#<div class="col-md-4"></div>#}
+    <div class="col-md-4"></div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+    <div class="well well-sm fade-in">
+    <div class="opac">
+    <h3> Add Players</h3>
+{% if num_players < 5 %}
+<br>
+{#    <div class="col-md-2">#}
+    <form action="/add_player/" method="post"> {% csrf_token %}
+      <div class="center" style="align-content: center">
+        <!-- {{ form.media }} -->
+
+    <input type="text" id="add_player" name="add_player"> 
+     <!-- {{ form.as_p }} -->
+{#    <br>Upload a picture for the player: <input type="file" name="myfile" enctype="multipart/form-data"/>#}
+</div>
+        <input type="submit" name="login" class="btn-sm login submit" value="Add a Player">
+
+    </form>
+        {#    </div>#}
+{#    <button class="play_navigation" id="a">Add Player</button>#}
+    {% else %}
+    You have the maximum numbers of players allowed on a team. Remove a player from your team if you
+    want to add another player.
+{% endif %}
+    {% else %}
+    <p> You are not part of a league. Join or create one!</p>
+{% endif %}
+    </div>
+</div>
+
+{#<div class="col-md-4"></div>#}
+</div>
+</div>
+<!-- Button trigger modal -->
+{% if num_leagues != 1 %}
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+  Create a League
+</button>
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal2">
+  Join a League
+</button>
+{% endif %}
+<div class="color">
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Create a League</h4>
+      </div>
+        <form action="/create_league/" method="post"> {% csrf_token %}
+      <div class="modal-body">
+        Enter a name for the league:
+
+    <input type="text" id="create_league" name="create_league">
+          <br>
+          Enter a password for the league:
+          <input type="text" id="league_password" name="league_password">
+         <br> Make sure that you remember the password! In order to join the league, the other players will need to enter
+          this password.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Create</button>
+      </div>
+        </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Search for League</h4>
+      </div>
+
+      <div class="modal-body">
+      <form action="/search_league/" method="get">
+          Search for a league:
+          <input type="text" id="search_league" name="search_league">
+          <input type="submit" id="search" name="search" value="search">
+      </form>
+      <div id="popup">
+      {% if league_search %}
+        {% for league in league_search %}
+            <span class="box_popup">{{ league.name }}</span> <button class="searchIT" value="{{ league.id }}" >
+            Enter</button> <br> <br>
+            <div id="{{ league.id }}" style="display: none">
+            <form action="/join_league/" method="post"> {% csrf_token %}
+            <input type="text" id="textInput" value="Password" name="join_league">
+                <input type="text" id="t" value="{{ league.id }}" name="league_id" style="display: none">
+            <input type="submit" id="submit_join_league" value="Join!">
+                </form>
+            <br>
+            </div>
+          {% endfor %}
+          {% else %}
+          We could not find a league with that name. Try making one instead!
+      {% endif %}
+      </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Join</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</body>
+
+{#<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js">#}
+
+<script>
+    $(document).on('click', '.searchIT',function(){
+    id = $(this).attr('value');
+        document.getElementById(id).style.display = 'block';
+});
+
+        $("#delete").click(function () {
+{#function myClick() {#}
+    var last_name = $(this).attr("value");
+    var first_name = $(this).attr("name");
+    console.log(first_name);
+    console.log(last_name);
+
+    var data = {
+        'first_name': first_name,
+        'last_name': last_name
+{#        'csrfmiddlewaretoken': '{{csrf_token}}'#}
+    };
+    $.ajax({
+        url: '/delete_player/',
+        method: 'GET',
+        data: data,
+        success: function () {
+            window.location.href = 'http://127.0.0.1:8000/profile/';
+        }
+    });
+    });
+
+
+</script>
+    <style>
+    .modal-backdrop {
+  z-index: -1;
+}
+    </style>
+{% endblock %}

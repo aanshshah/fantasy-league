@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+<head>
+    <title>Recent</title>
+</head>
+{% block main_content %}
+<body>
+<div class="opac">
+<div class="col-md-3"></div>
+<div class="col-md-6 fade-in">
+<div class="well well-sm fade-in">
+    <h2>RESULTS: </h2>
+    {% if match_detail %}
+    {% for match in match_detail %}
+    Match Number {{ match.number }}:  <br>
+    {% for detail in specific_detail %}
+        {% for use in detail %}
+    {% if use.match_number == match.number %}
+        {{use.user}}
+        {% if use.winner %}
+            (winner - score: {{ use.total_points }})
+            {% elif use.tie %}
+            (tie - score: {{ use.total_points }})
+            {% elif use.winner == False and use.total_points != 0 %}
+            (loser - score: {{ use.total_points }})
+            {% endif %}
+{% if forloop.counter0|divisibleby:"3" %}
+    vs.
+    {% else %}
+    <br>
+{% endif %}
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
+    <br>
+    {% endfor %}
+    {% else %}
+    Pairings have not been generated yet!
+    {% endif %}
+    </div>
+</div>
+<div class="col-md-3"></div>
+
+    </div>
+</body>
+{% endblock %}

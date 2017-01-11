@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+<head>
+    <meta charset="UTF-8">
+    <title>Rater</title>
+</head>
+{% block main_content %}
+<body>
+<div class="well well-sm">
+<p> Modify the ratings for all the players in the league and hit submit when you
+are done to update the ratings.</p>
+</div>
+<br>
+<br>
+<br>
+<div class="well well-sm">
+League Name: {{ league.name }} <br>
+Players in League: <br> <br>
+<form action="/modify_rating/" method="post"> {% csrf_token %}
+{% for player in all_players%}
+
+    {{ player.first_name }} {{ player.last_name }} :  <input type="text" name="modify_rating" value="{{ player.rating }}"><br>
+
+{% endfor %}
+<input type="submit" class="submit" value="submit" name="submit">
+</form>
+</div>
+</body>
+{% endblock %}

@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+<head>
+    <meta charset="UTF-8">
+
+    <title>League Page</title>
+
+
+</head>
+
+{% block main_content %}
+    <script type="text/javascript">
+            $(window).load(function(){
+                    league_search = {{ num_league }};
+if(league_search != null) {
+    $('#myModal2').modal({
+      backdrop: 'static',
+  keyboard: false
+            });
+    }
+});
+
+
+    $('#myModal2').on('hidden.bs.modal', function () {
+  window.location.href = '/league/{{ league.id }}';
+})
+        </script>
+<body>
+<div class="opac">
+<div class="col-md-3"></div>
+<div class="col-md-6 fade-in">
+<div class="well well-sm fade-in">
+<h1> Users in league: </h1> <br> <br>
+{% for user in user_in %}
+      <form action="/search_player/" method="get">
+          <input type="hidden" class="search_league" name="search_player" value="{{ user.id }}">
+          <input type="submit" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal2" value="User: {{ user.username}}"> <br> <br>
+{#          <input type="submit" id="search" name="search" value="search">#}
+      </form>
+
+{% endfor %}
+</div>
+</div>
+<div class="col-md-3"></div>
+
+<div class="col-md-3"></div>
+<div class="col-md-6 fade-in">
+<div class="well well-sm fade-in">
+CLICK HERE FOR <a href="/recent/">MATCH RESULTS</a>
+    <h2>Pairings: </h2>
+    {% if match_detail %}
+    {% for match in match_detail %}
+    Match Number {{ match.number }}:  <br>
+    {% for detail in specific_detail %}
+        {% for use in detail %}
+    {% if use.match_number == match.number %}
+        {{use.user}}
+{% if forloop.counter0|divisibleby:"3" %}
+    vs.
+    {% else %}
+    <br>
+{% endif %}
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
+    <br> 
+    {% endfor %}
+    {% else %}
+    Pairings have not been generated yet! 
+    {% endif %}
+    </div>
+    </div>
+<div class="col-md-3"></div>
+
+<div class="col-md-3"></div>
+<div class="col-md-6 fade-in">
+<div class="well well-sm fade-in">
+    <h2>Current Rankings: </h2>
+    {% for hist in history %}
+        <b>{{ hist.current_ranking }}.</b> {{ hist.user }}  (Wins: {{ hist.wins }}) <br> <br>
+    {% endfor %}
+    </div>
+    </div>
+<div class="col-md-3"></div>
+</div>
+</body>
+<br>
+{#<body>#}
+{##}
+{#</body>#}
+
+<!-- Modal -->
+    <div class="color">
+     <div id="popup">
+
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Player</h4>
+      </div>
+
+      <div class="modal-body">
+      {% if player_search %}
+    {% for player in player_search %}
+{{ player.first_name }} {{ player.last_name }}; Rating {{ player.rating }} <br> <br>
+          {% endfor %}
+          {% else %}
+          User has not drafted any players yet!
+      {% endif %}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="redirect()">Close</button>
+{#        <button type="button" class="btn btn-primary">Join</button>#}
+      </div>
+
+    </div>
+  </div>
+</div>
+         </div>
+    </div>
+<script>
+    function redirect(){
+        window.location.href = '/league/{{ league.id }}';
+{#        console.log({{ league.id }});#}
+    }
+
+        $(document).on('click', '.searchIT',function(){
+    id = $(this).attr('value');
+        document.getElementById(id).style.display = 'block';
+});
+</script>
+{% endblock %}

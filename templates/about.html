@@ -1,0 +1,112 @@
+
+{% load staticfiles %}
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Custom Fantasy Leagues</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="{% static 'league/css/main.css' %}">
+
+	</head>
+	<body>
+
+		<!-- Header -->
+			<section id="header">
+				<header>
+					<h1>Custom Fantasy Leagues</h1>
+					<p>For all your fantasy needs, create a custom league!</p>
+				</header>
+				<footer>
+					<a href="#banner" class="button style2 scrolly-middle">See what all the fuss is about</a>
+				</footer>
+			</section>
+
+		<!-- Banner -->
+			<section id="banner">
+				<header>
+					<h2>everything in the league <b>is customizable</b> </h2>
+				</header>
+				<p>You specify the players you want to compete with, the ratings of the players, who rates the players, the duration of the season,
+					and so much more!!</p>
+				<!-- <p>A brand new site template designed by <a href="#">AJ</a> for <a href="#">HTML5</a>.<br />
+				It’s fully responsive, built on <strong>skel</strong>, and of course entirely free<br />
+				under the <a href="http://html5up.net/license">Creative Commons license</a>.</p> -->
+				<footer>
+					<a href="#first" class="button style2 scrolly">Continue down</a>
+				</footer>
+			</section>
+
+		<!-- Feature 1 -->
+<!-- 			<article id="first" class="container box style1 right">
+				<a href="#" class="image fit"><img src="images/pic01.jpg" alt="" /></a>
+				<div class="inner">
+					<header>
+						<h2>Lorem ipsum<br />
+						dolor sit amet</h2>
+					</header>
+					<p>Tortor faucibus ullamcorper nec tempus purus sed penatibus. Lacinia pellentesque eleifend vitae est elit tristique velit tempus etiam.</p>
+				</div>
+			</article> -->
+
+		<!-- Feature 2 -->
+<!-- 			<article class="container box style1 left">
+				<a href="#" class="image fit"><img src="images/pic02.jpg" alt="" /></a>
+				<div class="inner">
+					<header>
+						<h2>Mollis posuere<br />
+						lectus lacus</h2>
+					</header>
+					<p>Rhoncus mattis egestas sed fusce sodales rutrum et etiam ullamcorper. Etiam egestas scelerisque ac duis magna lorem ipsum dolor.</p>
+				</div>
+			</article> -->
+
+		<!-- Portfolio -->
+			<article class="container box style2">
+				<header>
+					<h2>View Screenshots</h2>
+					<p>See what a league is like below!<br/>
+					</p>
+				</header>
+				<div class="inner gallery">
+					<div class="row 0%">
+						<div class="3u 12u(mobile)"><a href="{% static 'league/images/fulls/admin.png' %}" class="image fit"><img src="{% static 'league/images/fulls/admin.png' %}" alt="" title="Admin Page" /></a></div>
+						<div class="3u 12u(mobile)"><a href="{% static 'league/images/fulls/league1.png' %}" class="image fit"><img src="{% static 'league/images/fulls/league1.png' %}" alt="" title="League Page" /></a></div>
+						<div class="3u 12u(mobile)"><a href="{% static 'league/images/fulls/league2.png' %}" class="image fit"><img src="{% static 'league/images/fulls/league2.png' %}" alt="" title="League Page Continued" /></a></div>
+						<div class="3u 12u(mobile)"><a href="{% static 'league/images/fulls/profile.png' %}" class="image fit"><img src="{% static 'league/images/fulls/profile.png' %}" alt="" title="Profile Page" /></a></div>
+					</div>
+					<div class="row 0%">
+						<div class="3u 12u(mobile)"><a href="{% static 'league/images/fulls/ratings.png' %}" class="image fit"><img src="{% static 'league/images/fulls/ratings.png' %}" alt="" title="The Admin of the League Can Designate A Rater To Customize The Ratings" /></a></div>
+						<div class="3u 12u(mobile)"><a href="{% static 'league/images/fulls/trade.png' %}" class="image fit"><img src="{% static 'league/images/fulls/trade.png' %}" alt="" title="Trade with Everyone In The League!" /></a></div>
+						<div class="3u 12u(mobile)"><a href="{% static 'league/images/fulls/results.png' %}" class="image fit"><img src="{% static 'league/images/fulls/results.png' %}" alt="" title="View the Results From The Rounds and Matches" /></a></div>
+						<!-- <div class="3u 12u(mobile)"><a href="images/fulls/08.jpg" class="image fit"><img src="images/thumbs/08.jpg" alt="" title="People come and go and walk away" /></a></div> -->
+					</div>
+				</div>
+			</article>
+
+		<!-- Contact -->
+			<article class="container box style3">
+				<header>
+					<h2>Join Us or Login!</h2>
+				</header>
+				<form action="http://thecustomleague.com/login">
+    <input type="submit" value="Login" />
+    </form>
+    <br>
+    <form action="http://thecustomleague.com//accounts/register/">
+    <input type="submit" value="Register" />
+    </form>
+
+
+				</article>
+
+		<!-- Scripts -->
+		<script type="text/javascript" src="{% static 'league/js/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'league/js/jquery.poptrox.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'league/js/skel.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'league/js/util.js' %}"></script>
+<script type="text/javascript" src="{% static 'league/js/main.js.js' %}"></script>
+			
+
+	</body>
+</html>

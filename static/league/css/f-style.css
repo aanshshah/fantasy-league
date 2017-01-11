@@ -1,0 +1,126 @@
+/*.nav .nav-tabs{*/
+    /*padding-top: 65px;*/
+/*}*/
+/*body {*/
+  /*padding-top: 60px;*/
+/*}*/
+.color{
+    color: black
+}
+#nav {
+width:750px;
+margin:0 auto;
+list-style:none;
+}
+#nav li {
+float:left;
+}
+#nav a {
+display:block;
+text-align:center;
+width:150px; /* fixed width */
+text-decoration:none;
+}
+.well{
+    display: inline-block;
+    text-align: center;
+    align-content: center;
+    background: black;
+    opacity: 0.8 !important;
+    width: 100%;
+    height: 100%;
+}
+
+/*.remove-player{*/
+    /*float: right;*/
+/*}*/
+.opac{
+    opacity: 0.8;
+}
+.submit:hover {
+    opacity: 1.0;
+    filter: alpha(opacity=100); /* For IE8 and earlier */
+    background-color: black;
+    color: white;
+}
+.submit{
+    background-color: white;
+    color: black;
+}
+.underline{
+    text-decoration: underline;
+}
+input[type="text"], text, .trade_submit{
+    color: black;
+    /*background-color: #0f0f0f;*/
+}
+/*.trade_form{*/
+    /*color: black;*/
+/*}*/
+.trade_submit{
+    opacity: 1;
+    color: black;
+}
+
+/* make keyframes that tell the start state and the end state of our object */
+@-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+.fade-in {
+  opacity:0;  /* make things invisible upon start */
+  -webkit-animation:fadeIn ease-in 1;  /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
+  -moz-animation:fadeIn ease-in 1;
+  animation:fadeIn ease-in 1;
+
+  -webkit-animation-fill-mode:forwards;  /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+  -moz-animation-fill-mode:forwards;
+  animation-fill-mode:forwards;
+
+  -webkit-animation-duration:1s;
+  -moz-animation-duration:1s;
+  animation-duration:1s;
+}
+
+/*.fade-in.one {*/
+  /*-webkit-animation-delay: 0.7s;*/
+  /*-moz-animation-delay: 0.7s;*/
+  /*animation-delay: 0.7s;*/
+/*}*/
+
+/*.fade-in.two {*/
+  /*-webkit-animation-delay: 1.2s;*/
+  /*-moz-animation-delay:1.2s;*/
+  /*animation-delay: 1.2s;*/
+/*}*/
+
+/*.fade-in.three {*/
+  /*-webkit-animation-delay: 1.6s;*/
+  /*-moz-animation-delay: 1.6s;*/
+  /*animation-delay: 1.6s;*/
+/*}*/
+
+
+
+body {
+    color: white;
+    /*background: linear-gradient(181deg, #fe0000, #00f625, #004bf6, #f000f6);*/
+    /*background-size: 800% 800%;*/
+    /*-webkit-animation: changing_gradient 24s ease infinite;*/
+    /*-moz-animation: changing_gradient 24s ease infinite;*/
+    /*-o-animation: changing_gradient 24s ease infinite;*/
+    /*animation: changing_gradient 24s ease infinite;*/
+    background-color: silver;
+background-image: linear-gradient(335deg, #b00 23px, transparent 23px),
+linear-gradient(155deg, #d00 23px, transparent 23px),
+linear-gradient(335deg, #b00 23px, transparent 23px),
+linear-gradient(155deg, #d00 23px, transparent 23px);
+background-size: 58px 58px;
+background-position: 0px 2px, 4px 35px, 29px 31px, 34px 6px;
+}
+
+@media (max-width: 979px) {
+  body {
+    padding-top: 0px;
+  }
+}

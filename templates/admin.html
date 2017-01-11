@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+</head>
+{% block main_content %}
+<body>
+<div class="well well-sm">
+{% if isa_rater %}
+    <form action="/rater/" method="post"> {% csrf_token %}
+    <input type="hidden" name="delete_rater" value="{{ rater.user }}">
+    You already have a rater. You can unselect <input type="submit" value="{{ rater.user }}" class="submit" readonly> and select another user to be your rater.
+    </form>
+    {% else %}
+    Select a rater from a member of your league! <br>
+    {% for user in all_users %}
+        {% for users in user.players.all %}
+        <form action="/rater/" method="post"> {% csrf_token %}
+        <input type="text" name="make_rater" value="{{ users.username }}" readonly>
+    <input type="submit" class="submit" value="submit"> <br>
+        </form>
+{% endfor %}
+    {% endfor %}
+{% endif %}
+</div>
+
+<div class="well well-sm">
+    <form action="/create_pairings/" method="post"> {% csrf_token %}
+    <p>
+    Press the following button when <b>all the users</b> have joined your league. It will generate pairings
+    for your league.
+    </p>
+        <div class="color">
+    <input type="submit" value="Generate Pairings!">
+        </div>
+
+    
+        
+    </form>
+    </div>
+
+<div class="well well-sm">
+    {% if pairings %}
+    When you click the button corresponding to the match number, the corresponding winners from each round will be tallied.
+    Once you click a button there are no redos! <br>
+        <div class="color">
+        <form action="/calculate_winner/" method="post">
+        {% for pair in pairings %}
+            <input type="submit" value="{{ pair.number }}" name="match_number"> <br>
+        {% endfor %}
+        </form>
+        {% else %}
+        Match pairings have not been generated yet! When pairings are generated, you will be able to calculate the winners of each
+        round here.
+    {% endif %}
+</div>
+</div>
+</body>
+{% endblock %}

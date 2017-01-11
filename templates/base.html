@@ -1,0 +1,75 @@
+{% load staticfiles %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Latest compiled and minified CSS -->
+    <script type="text/javascript" src="{% static 'league/js/jquery-3.1.0.min.js' %}"></script>
+{#    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>#}
+
+{#<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">#}
+<link rel="stylesheet" href="{% static 'league/css/bootstrap-theme.css' %}">
+    <link rel="stylesheet" href="{% static 'league/css/bootstrap-theme.min.css' %}">
+    <link rel="stylesheet" href="{% static 'league/css/bootstrap.css' %}">
+{#    <link rel="stylesheet" href="{% static 'league/css/normalize.css' %}">#}
+{#    <link rel="stylesheet" href="{% static 'league/css/style.css' %}">#}
+<!-- Optional theme -->
+{#<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">#}
+
+    <!-- Latest compiled and minified JavaScript -->
+
+{#    <script type="text/javascript" src="{% static 'league/js/bootstrap.js' %}"></script>#}
+    <script type="text/javascript" src="{% static 'league/js/bootstrap.min.js' %}"></script>
+{#    <script type="text/javascript" src="{% static 'league/js/npm.js' %}"></script>#}
+<!-- jQuery library -->
+
+<script type="text/javascript" src="{% static 'league/js/jquery-ui.js' %}"></script>
+{#<script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>#}
+<link rel="stylesheet" href="{% static 'league/css/f-style.css' %}">
+
+{#    <script type="text/javascript" src="{% static 'league/css/f-style.css' %}"></script>#}
+        <title> fantleague | {% block title %}{% endblock %}</title>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-83076704-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+    </head>
+
+    <nav class="navbar navbar-inverse" id="nav">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li><a href="/profile/">Profile</a></li>
+      <li><a href="/league/">League</a></li>
+    <li><a href="/trade/">Trade</a></li>
+        {% if user.is_authenticated %}
+      <li><a href="/logout/">logout</a></li>
+        {% else %}
+      <li><a href="/login/">login</a></li>
+        {% endif %}
+    </ul>
+  </div>
+</nav>
+{#    <nav class="navbar navbar-inverse" style="text-align: center">#}
+{#  <li role="presentation" class="active"><a href="/profile/">Profile</a></li>#}
+{#  <li role="presentation"><a href="/league/">League</a></li>#}
+{#        {% if user.is_authenticated %}#}
+{#  <li role="presentation"><a href="/logout/">logout</a></li>#}
+{#            {% else %}#}
+{#  <li role="presentation"><a href="/login/">login</a></li>#}
+{#        {% endif %}#}
+{#</nav>#}
+
+{% block main_content %}
+
+            MAIN CONTENT
+
+          {% endblock %}
+
+</html>
